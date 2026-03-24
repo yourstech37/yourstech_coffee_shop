@@ -18,6 +18,9 @@ export default function Navbar() {
   const { cartItems } = useCart();
   const { user, signOut } = useAuth();
 
+  // Sum all item quantities for the cart badge (e.g. 3× Cappuccino = 3, not 1)
+  const cartCount = cartItems.reduce((sum, item) => sum + (item.quantity || 1), 0);
+
   const fullName =
     [user?.firstName, user?.lastName].filter(Boolean).join(" ") || "Account";
 
@@ -82,9 +85,9 @@ export default function Navbar() {
             >
               <FiShoppingCart size={24} />
 
-              {cartItems.length > 0 && (
+              {cartCount > 0 && (
                 <span className="absolute -top-2 -right-2 h-5 min-w-[20px] px-1 rounded-full bg-coffee-orange text-white text-xs flex items-center justify-center">
-                  {cartItems.length}
+                  {cartCount}
                 </span>
               )}
             </Link>
@@ -200,9 +203,9 @@ export default function Navbar() {
                   Cart
                 </span>
 
-                {cartItems.length > 0 && (
+                {cartCount > 0 && (
                   <span className="h-5 min-w-[20px] px-1 rounded-full bg-coffee-orange text-white text-xs flex items-center justify-center">
-                    {cartItems.length}
+                    {cartCount}
                   </span>
                 )}
               </Link>

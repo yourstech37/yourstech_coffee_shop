@@ -37,7 +37,7 @@ export default function ProductsPreview() {
                 View
               </Link>
 
-              <AddToCartButton product={p} />
+              <AddToCartButton product={p} variant="icon" />
             </div>
           </div>
         ))}

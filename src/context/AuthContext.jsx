@@ -40,8 +40,23 @@ export function AuthProvider({ children }) {
     localStorage.removeItem("user");
   }
 
+  /**
+   * updateProfile - saves updated user data to state and localStorage
+   * @param {object} data - updated profile fields (name, phone, address, etc.)
+   */
+  function updateProfile(data) {
+    const updated = { ...user, ...data };
+    setUser(updated);
+    localStorage.setItem("user", JSON.stringify(updated));
+    // Also keep registeredUser in sync so future sign-ins reflect changes
+    const registered = JSON.parse(localStorage.getItem("registeredUser"));
+    if (registered && registered.email === updated.email) {
+      localStorage.setItem("registeredUser", JSON.stringify(updated));
+    }
+  }
+
   return (
-    <AuthContext.Provider value={{ user, signUp, signIn, signOut }}>
+    <AuthContext.Provider value={{ user, signUp, signIn, signOut, updateProfile }}>
       {children}
     </AuthContext.Provider>
   );
