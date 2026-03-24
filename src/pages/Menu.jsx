@@ -27,11 +27,10 @@ export default function Menu() {
               {p.description}
             </p>
 
-            <p className="mt-2 font-bold text-coffee-brown">
-              ${p.price}
-            </p>
-
-            <AddToCartButton product={p} />
+            <div className="mt-2 flex items-center justify-between">
+              <p className="font-bold text-coffee-brown">${p.price}</p>
+              <AddToCartButton product={p} iconOnly />
+            </div>
           </div>
         ))}
       </div>
